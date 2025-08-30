@@ -1,0 +1,19 @@
+/* About Page */
+.about {
+  padding: 2rem;
+  text-align: center;
+}
+
+.about p {
+  max-width: 600px;
+  margin: 1rem auto;
+  line-height: 1.6;
+}
+
+.about-img {
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+} 

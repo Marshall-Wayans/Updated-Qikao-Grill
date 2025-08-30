@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Qikao Grill</title>
+
+  
+  <link rel="stylesheet" href="(homepage)style.css" />
+
+  
+</head>
+<body>
+ 
+<nav class="navbar">
+    <div class="brand">Qikao Grill</div>
+
+    <ul class="nav-links">
+      <li><a href="#">Menu</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="hamburger" id="hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </div>
+
+    <!-- Cart icon in navbar (opens database-like sidebar) -->
+    <button id="open-cart" class="cart-btn" aria-label="Open cart">🛒
+      <span id="nav-count" class="cart-count">0</span>
+    </button>
+
+    <!-- Theme toggle (kept) -->
+    <label class="switch" aria-label="Toggle color theme">
+      <input type="checkbox" id="theme-toggle" />
+      <span class="slider">
+        <span class="icon sun">☀️</span>
+        <span class="icon moon">🌙</span>
+      </span>
+    </label>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero reveal">
+    <h1>Fresh. Fast. Flavorful.</h1>
+    <p>Order your favorites from Qikao Grill — delivered and served hot.</p>
+    <a class="cta" href="contact.html">Order Now</a>
+  </header>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <article class="card reveal"><h3>Curated Dishes</h3><p>A rotating selection of customer favorites.</p></article>
+    <article class="card reveal"><h3>Fast Checkout</h3><p>Smooth cart and secure payment flow.</p></article>
+    <article class="card reveal"><h3>Track Orders</h3><p>Know exactly when your food arrives.</p></article>
+  </section>
+
+
+
+  <!-- MENU -->
+  <section class="menu-section container">
+    <h2>Our Menu</h2>
+    <h2>Breakfast</h2>
+
+    <div class="menu-grid">
+    
+      <div class="menu-card">
+        <img src="../public/images/chai moto.jpg" alt="Chai moto" />
+        <h3>Chai moto</h3>
+        <p>Hot Tea with either Tea Leaves or Cocoa</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+   
+      <div class="menu-card">
+        <img src="../public/images/coffee.jpg" alt="Coffee" />
+        <h3>Coffee</h3>
+        <p>Rich, freshly-brewed coffee with a bold aroma and smooth finish.</p>
+        <span class="price">70/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+    
+      <div class="menu-card">
+        <img src="../public/images/smocha.jpeg" alt="Smocha" />
+        <h3>Smocha</h3>
+        <p>Flaky pastry filled with sweet, chocolatey goodness.</p>
+        <span class="price">70/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+
+      <div class="menu-card">
+        <img src="../public/images/mandazi.jpg" alt="Mandazi" />
+        <h3>Mandazi</h3>
+        <p>Golden, sweet, and perfect with tea or as a quick snack.</p>
+        <span class="price">10/= each</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+      <div class="menu-card">
+        <img src="../public/images/burger.jpg" alt="Burger" />
+        <h3>Burger</h3>
+        <p>Juicy grilled patty, crisp lettuce and our signature sauce on a bun — classic comfort.</p>
+        <span class="price">250/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+      <div class="menu-card">
+        <img src="../public/images/smokie.jpg" alt="Smokie" />
+        <h3>Smokie</h3>
+        <p>Deep fried smokie served hot with kachumbari.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+            <div class="menu-card">
+        <img src="../public/images/sausage.jpg" alt="Smokie" />
+        <h3>Sausage</h3>
+        <p>Deep fried sausage served hot with kachumbari.</p>
+        <span class="price">45/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+            <div class="menu-card">
+        <img src="../public/images/samosa.jpg" alt="Smokie" />
+        <h3>Samosa</h3>
+        <p>Crispy pockets stuffed with beef/vegetables — crunchy, aromatic,</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+                  <div class="menu-card">
+        <img src="../public/images/njugu karanga.jpg" alt="Smokie" />
+        <h3>Njugu Karanga</h3>
+        <p>Crunchy, roasted peanuts — a salty-sweet classic that’s addictive by the handful.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+                  <div class="menu-card">
+        <img src="../public/images/chips masala.jpg" alt="Smokie" />
+        <h3>Chips Masala</h3>
+        <p>Fries tossed in a masala blend with onions and tomatoes — full of bold flavor.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+                  <div class="menu-card">
+        <img src="../public/images/boiled eggs.jpg" alt="Smokie" />
+        <h3>Boiled Eggs</h3>
+        <p>Perfectly boiled eggs — a simple protein boost for any meal.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+                  <div class="menu-card">
+        <img src="../public/images/bhajia.jpg" alt="Smokie" />
+        <h3>Bhajia</h3>
+        <p>Crispy potato fritters seasoned with turmeric and curry — crunchy on the outside, soft and savory inside.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+      
+    </div>
+
+
+
+
+
+    <h2>Lunch</h2>
+
+    <div class="menu-grid">
+    
+      <div class="menu-card">
+        <img src="../public/images/spicy noodles.jpg" alt="Chai moto" />
+        <h3>Spicy Noodles</h3>
+        <p>Tasty noodles with fiery spices</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+     
+      <div class="menu-card">
+        <img src="../public/images/chips masala.jpg" alt="Coffee" />
+        <h3>Chips Masala</h3>
+        <p>Fries tossed in a masala blend with onions and tomatoes — full of bold flavor.</p>
+        <span class="price">70/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+    
+      <div class="menu-card">
+        <img src="../public/images/normal fries.jpg" alt="Smocha" />
+        <h3>Normal Fries</h3>
+        <p>Golden, crispy fries — hot, and perfectly salted. The ultimate side or snack that can be taken at any time of the day.</p>
+        <span class="price">70/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+
+      <div class="menu-card">
+        <img src="../public/images/pilau.jpg" alt="Mandazi" />
+        <h3>Pilau</h3>
+        <p>Fragrant spiced rice slow-cooked with tender meat and whole spices — aromatic, rich, and deeply satisfying.</p>
+        <span class="price">10/= each</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+      <div class="menu-card">
+        <img src="../public/images/mshikaki.jpg" alt="Burger" />
+        <h3>Mshikaki</h3>
+        <p>flame-grilled meat — smoky, tender, and seasoned to perfection for easy, delicious bites.</p>
+        <span class="price">250/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+      <div class="menu-card">
+        <img src="../public/images/bbq.jpg" alt="Smokie" />
+        <h3>BBQ</h3>
+        <p>Slow-smoked and glazed with our tangy sauce — sticky, smoky and packed with charred goodness.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+            <div class="menu-card">
+        <img src="../public/images/bbqchicken.jpg" alt="Smokie" />
+        <h3>BBQ Chicken</h3>
+        <p>Charred, juicy chicken basted in smoky BBQ glaze — crispy edges, tender inside, full-flavored.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+            <div class="menu-card">
+        <img src="../public/images/plain.jpg" alt="Smokie" />
+        <h3>Pain Rice</h3>
+        <p>Fluffy steamed rice — the perfect neutral base to soak up stews, sauces and curries.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+      
+
+    
+    </div>
+
+
+
+
+    <h2>Supper</h2>
+
+    <div class="menu-grid">
+     
+      <div class="menu-card">
+        <img src="../public/images/pilau.jpg" alt="Chai moto" />
+        <h3>Pilau</h3>
+        <p>Fragrant spiced rice slow-cooked with tender meat and whole spices — aromatic, rich, and deeply satisfying.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+    
+      <div class="menu-card">
+        <img src="../public/images/ugali with fish.jpg" alt="Coffee" />
+        <h3>Ugali with Fish</h3>
+        <p>Classic maize ugali paired with flaky, spiced fish — a comforting coastal combo that hits the spot.</p>
+        <span class="price">70/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+    
+      <div class="menu-card">
+        <img src="../public/images/ugali with mboga.jpg" alt="Smocha" />
+        <h3>Ugali with Mboga</h3>
+        <p>Starchy ugali served with sautéed sukuma wiki (collard greens) — simple, hearty and home-style satisfying.</p>
+        <span class="price">70/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+      
+      <div class="menu-card">
+        <img src="../public/images/plain.jpg" alt="Mandazi" />
+        <h3>Pain Rice</h3>
+        <p>Fluffy steamed rice — the perfect neutral base to soak up stews, sauces and curries.</p>
+        <span class="price">10/= each</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+      <div class="menu-card">
+        <img src="../public/images/bbq.jpg" alt="Burger" />
+        <h3>BBQ</h3>
+        <p>Slow-smoked and glazed with our tangy sauce — sticky, smoky and packed with charred goodness.</p>
+        <span class="price">250/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+      <div class="menu-card">
+        <img src="../public/images/bbqchicken.jpg" alt="Smokie" />
+        <h3>BBQ Chicken</h3>
+        <p>Charred, juicy chicken basted in smoky BBQ glaze — crispy edges, tender inside, full-flavored.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+            <div class="menu-card">
+        <img src="../public/images/grilled meat.jpg" alt="Smokie" />
+        <h3>Grilled Meat</h3>
+        <p>Hand-cut meat grilled over coals until caramelized — smoky, juicy and irresistibly savory.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+     
+    </div>
+
+
+
+
+    <h2>Snacks</h2>
+
+    <div class="menu-grid">
+     
+      <div class="menu-card">
+        <img src="../public/images/smocha.jpeg" alt="Chai moto" />
+        <h3>Smocha</h3>
+        <p>Flaky pastry filled with sweet, chocolatey goodness.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+     
+      <div class="menu-card">
+        <img src="../public/images/mandazi.jpg" alt="Coffee" />
+        <h3>Mandazi</h3>
+        <p>Golden, sweet, and perfect with tea or as a quick snack.</p>
+        <span class="price">70/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+     
+      <div class="menu-card">
+        <img src="../public/images/smokie.jpg" alt="Smocha" />
+        <h3>Smokie</h3>
+        <p>Deep fried smokie served hot with kachumbari.</p>
+        <span class="price">70/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+     
+      <div class="menu-card">
+        <img src="../public/images/sausage.jpg" alt="Mandazi" />
+        <h3>Sausage</h3>
+        <p>Deep fried sausage served hot with kachumbari.</p>
+        <span class="price">10/= each</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+      <div class="menu-card">
+        <img src="../public/images/samosa.jpg" alt="Burger" />
+        <h3>Samosa</h3>
+        <p>Crispy pockets stuffed with beef/vegetables — crunchy, aromatic,</p>
+        <span class="price">250/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+      <div class="menu-card">
+        <img src="../public/images/mshikaki.jpg" alt="Smokie" />
+        <h3>Mshikaki</h3>
+        <p>flame-grilled meat — smoky, tender, and seasoned to perfection for easy, delicious bites.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+            <div class="menu-card">
+        <img src="../public/images/boiled eggs.jpg" alt="Smokie" />
+        <h3>Boiled Eggs</h3>
+        <p>Perfectly boiled eggs — a simple protein boost for any meal.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+            <div class="menu-card">
+        <img src="../public/images/soda.jpg" alt="Smokie" />
+        <h3>Soda</h3>
+        <p>Ice-cold soda — fizzy, refreshing and the perfect finish to any meal.</p>
+        <span class="price">50/=</span>
+        <div class="controls"><button class="btn-small btn-decr">−</button><button class="btn-small btn-incr">+</button></div>
+        <button class="order-btn">Add to Cart</button>
+      </div>
+
+     
+    </div>
+
+    <a class="cta cart-static-btn" href="cart.html" aria-label="Open My Cart">My Cart</a>
+
+
+
+
+
+
+
+
+
+
+
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- CART SIDEBAR (database-like) -->
+  <aside class="cart-sidebar" id="cart-sidebar" aria-hidden="true">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <h3>Your Cart (Database)</h3>
+      <div>
+        <button id="collapse-list" class="collapse-btn" aria-expanded="true">Collapse ▲</button>
+      </div>
+    </div>
+
+    <div id="cart-items" class="cart-items" role="region" aria-live="polite">
+      <!-- rendered dynamically -->
+    </div>
+
+    <div class="cart-footer">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="small-muted">Subtotal</div>
+        <div style="font-weight:800" id="cart-subtotal">Ksh 0.00</div>
+      </div>
+      <button id="view-cart" class="view-cart">View Cart</button>
+    </div>
+  </aside>
+
+<a href="https://wa.me/?text=Hi%20Qikao%20Grill!%20I%20want%20to%20place%20an%20order." 
+   class="whatsapp-float" target="_blank">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+</a>
+
+
+
+
+
+
+  <!-- bottom bar -->
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <div class="small-muted">© <span id="footer-year"></span> Qikao Grill — All rights reserved.</div>
+      <nav class="footer-legal" aria-label="Footer legal">
+        <a href="privacy.html">Privacy</a>
+        <span aria-hidden="true">•</span>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- back to top pill -->
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑ Top</button>
+</footer>
+
+
+
+
+  <script defer src="(animation,theme)script.js"></script>
+</body>
+</html>

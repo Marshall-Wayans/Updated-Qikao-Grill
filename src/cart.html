@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Qikao Grill — Cart & Checkout</title>
+
+  <style>
+    :root{
+      --accent1:#e63946;
+      --accent2:#ff636e;
+      --bg:#faf8f9;
+      --card:#ffffff;
+      --muted:#666;
+      --text:#111;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Header */
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 1.25rem;
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      color:#fff;
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    header .brand{font-weight:800;font-size:1.15rem}
+    header a.back{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      background:rgba(255,255,255,0.08);
+      padding:8px 12px;
+      border-radius:8px;
+    }
+
+    /* Container */
+    .container{max-width:1000px;margin:1.5rem auto;padding:0 1rem}
+    h1{margin:0 0 0.5rem;font-size:1.4rem}
+    .lead{color:var(--muted);margin-bottom:1rem}
+
+    /* Cart list */
+    .cart-list{
+      background:var(--card);
+      border-radius:12px;
+      padding:1rem;
+      box-shadow:0 10px 30px rgba(17,17,17,0.06);
+    }
+    .cart-row{
+      display:flex;
+      gap:1rem;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.8rem 0;
+      border-bottom:1px solid #f1f1f5;
+    }
+    .cart-row:last-child{border-bottom:none}
+    .left{
+      display:flex;
+      gap:0.75rem;
+      align-items:center;
+      min-width:0;
+    }
+    .left img{width:88px;height:64px;object-fit:cover;border-radius:8px;flex-shrink:0}
+    .item-meta{min-width:0}
+    .item-meta .name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .item-meta .meta{color:var(--muted);font-size:0.95rem;margin-top:4px}
+
+    /* quantity & line total */
+    .line-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+    .line-total{font-weight:800}
+    .qty-controls{display:flex;gap:6px;align-items:center}
+    .qty-controls button{
+      background:#fff;border:1px solid #eee;padding:6px 10px;border-radius:8px;cursor:pointer;font-weight:700;
+      box-shadow:0 6px 18px rgba(0,0,0,0.04);
+    }
+
+    /* empty */
+    .empty{padding:2rem;text-align:center;color:var(--muted)}
+
+    /* summary */
+    .summary{
+      margin-top:1rem;
+      display:flex;
+      gap:1rem;
+      align-items:center;
+      justify-content:space-between;
+      background:var(--card);
+      padding:1rem;
+      border-radius:10px;
+      box-shadow:0 8px 24px rgba(17,17,17,0.06);
+    }
+    .summary .total-label{color:var(--muted)}
+    .total-amount{font-weight:900;font-size:1.25rem}
+
+    /* mpesa input & pay btn */
+    .pay-controls{display:flex;gap:8px;align-items:center}
+    .pay-controls input{
+      padding:10px;border-radius:8px;border:1px solid #eee;min-width:160px;
+    }
+    .pay-btn{
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      color:#fff;border:none;padding:10px 14px;border-radius:10px;font-weight:800;cursor:pointer;
+    }
+
+    /* status text */
+    .mpesa-status { font-weight:700; color:#333; margin-top:.6rem; white-space:pre-line; }
+
+    /* misc */
+    .small-muted{color:var(--muted);font-size:0.92rem}
+    .remove-btn{background:none;border:none;color:var(--accent1);cursor:pointer;font-weight:700}
+
+    /* responsive */
+    @media (max-width:700px){
+      .left img{width:68px;height:52px}
+      .line-right{align-items:flex-end}
+      .pay-controls{flex-direction:column;align-items:stretch}
+      .pay-controls input{width:100%}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">Qikao Grill</div>
+    <a class="back" href="index.html">◀ Back to Menu</a>
+  </header>
+
+  <main class="container" aria-live="polite">
+    <h1>Your Order</h1>
+    <p class="lead">Only the items you selected on the menu appear below. Adjust quantities or remove items. When ready — pay with M-Pesa.</p>
+
+    <div id="cartList" class="cart-list" aria-label="Cart items">
+      <!-- rendered by JS -->
+    </div>
+
+    <div id="summary" class="summary" aria-label="Order summary">
+      <!-- rendered by JS -->
+    </div>
+
+    <div id="statusBlock" style="max-width:1000px;margin:12px auto;padding:0 1rem">
+      <div id="mpesaStatus" class="mpesa-status" aria-live="polite"></div>
+    </div>
+  </main>
+
+ <script>
+  // CART PAGE — single-file behavior + real M-Pesa STK push integration
+  const STORAGE_KEY = 'qikao_cart';
+  const MPESA_API = '/api/mpesa/stkpush';          // backend endpoint that triggers STK push
+  const MPESA_STATUS_API = '/api/mpesa/status';   // backend endpoint to poll status (explained below)
+
+  function readCart() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch (e) { return []; }
+  }
+  function saveCart(cart) { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); }
+  function fmtKsh(n) { const s = n.toFixed(2); return s.replace(/\.00$/, ''); }
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+  // ✅ Ensure image path is always /images/filename
+  function fixImagePath(path) {
+    if (!path) return '/images/placeholder.png'; // fallback image
+    if (path.startsWith('/images/')) return path;
+    return '/images/' + path.replace(/^.*images[\\/]/, '');
+  }
+
+  function renderCart() {
+    const cart = readCart();
+    const list = document.getElementById('cartList');
+    const summary = document.getElementById('summary');
+    const statusDiv = document.getElementById('mpesaStatus');
+    statusDiv.textContent = '';
+    list.innerHTML = '';
+    summary.innerHTML = '';
+
+    if (!cart.length) {
+      list.innerHTML = '<div class="empty">Your cart is empty — <a href="../(homepage)index.html">return to menu</a> and add something tasty.</div>';
+      return;
+    }
+
+    let total = 0;
+    for (const it of cart) {
+      const lineTotal = it.price * it.quantity;
+      total += lineTotal;
+
+      const row = document.createElement('div');
+      row.className = 'cart-row';
+      row.innerHTML = `
+        <div class="left">
+          <img src="${escapeHtml(fixImagePath(it.img))}" alt="${escapeHtml(it.name)}" />
+          <div class="item-meta">
+            <div class="name">${escapeHtml(it.name)}</div>
+            <div class="meta small-muted">Ksh ${fmtKsh(it.price)} each</div>
+          </div>
+        </div>
+
+        <div class="line-right">
+          <div class="line-total">Ksh ${fmtKsh(lineTotal)}</div>
+          <div class="qty-controls" aria-label="Quantity controls">
+            <button class="qty-decr" data-id="${escapeHtml(it.id)}" aria-label="Decrease quantity">−</button>
+            <div class="small-muted qty-number">${it.quantity}</div>
+            <button class="qty-incr" data-id="${escapeHtml(it.id)}" aria-label="Increase quantity">+</button>
+            <button class="remove-btn" data-id="${escapeHtml(it.id)}" aria-label="Remove item">Remove</button>
+          </div>
+        </div>
+      `;
+      list.appendChild(row);
+    }
+
+    summary.innerHTML = `
+      <div>
+        <div class="total-label small-muted">Total</div>
+        <div class="total-amount">Ksh ${fmtKsh(total)}</div>
+      </div>
+      <div class="pay-controls" role="region" aria-label="Payment controls">
+        <input id="mpesaPhone" type="tel" placeholder="Enter M-Pesa phone (07...)" aria-label="M-Pesa phone number" />
+        <button id="payMpesa" class="pay-btn">Pay with M-Pesa</button>
+      </div>
+    `;
+
+    document.getElementById('payMpesa').addEventListener('click', () => onPayClicked(total));
+  }
+
+  function decrease(id){
+    const cart = readCart(); const idx = cart.findIndex(i => i.id === id);
+    if (idx === -1) return;
+    cart[idx].quantity -= 1;
+    if (cart[idx].quantity <= 0) cart.splice(idx,1);
+    saveCart(cart); renderCart();
+  }
+  function increase(id){
+    const cart = readCart(); const idx = cart.findIndex(i => i.id === id);
+    if (idx === -1) return;
+    cart[idx].quantity += 1; saveCart(cart); renderCart();
+  }
+  function removeItem(id){
+    if(!confirm('Remove this item from your cart?')) return;
+    const cart = readCart(); const newCart = cart.filter(i => i.id !== id); saveCart(newCart); renderCart();
+  }
+
+  document.addEventListener('click', function(e){
+    const t = e.target;
+    if (t.matches('.qty-decr')) { decrease(t.dataset.id); return; }
+    if (t.matches('.qty-incr')) { increase(t.dataset.id); return; }
+    if (t.matches('.remove-btn')) { removeItem(t.dataset.id); return; }
+  });
+
+  // Validate phone: accept 07xxxxxxxx OR +2547xxxxxxxx OR 2547xxxxxxxx
+  function normalizePhone(phone){
+    let s = phone.replace(/\s+/g,'');
+    if(s.startsWith('+')) s = s.slice(1);
+    if(s.startsWith('0')) s = '254' + s.slice(1);
+    return s;
+  }
+  function isValidKenyanPhoneSimple(phone){
+    const trimmed = phone.replace(/\s+/g,'');
+    return /^0\d{8,9}$/.test(trimmed) || /^2547\d{8}$/.test(trimmed) || /^\+2547\d{8}$/.test(trimmed);
+  }
+
+  // STK push flow
+  async function onPayClicked(totalAmount){
+    const phoneInput = document.getElementById('mpesaPhone');
+    const statusDiv = document.getElementById('mpesaStatus');
+    const payBtn = document.getElementById('payMpesa');
+    const phone = (phoneInput.value || '').trim();
+
+    if(!isValidKenyanPhoneSimple(phone)){
+      alert('Enter a valid Kenya phone number (e.g., 07XXXXXXXX).');
+      phoneInput.focus();
+      return;
+    }
+    const cart = readCart();
+    if(!cart.length){ alert('Your cart is empty.'); return; }
+
+    payBtn.disabled = true;
+    statusDiv.textContent = 'Requesting M-Pesa prompt — please check your phone and be ready to enter your M-Pesa PIN...';
+
+    const accountRef = 'QikaoOrder-' + String(Date.now()).slice(-6);
+    const description = 'Qikao Grill Order';
+
+    try {
+      const body = {
+        phone: phone,
+        amount: Math.round(totalAmount),
+        accountRef,
+        description
+      };
+
+      const resp = await fetch(MPESA_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      const json = await resp.json();
+
+      if(!resp.ok){
+        console.error('STK error', json);
+        statusDiv.textContent = 'Payment request failed: ' + (json.error || JSON.stringify(json));
+        payBtn.disabled = false;
+        return;
+      }
+
+      const data = json.data || json;
+      const checkoutId = (data && (data.CheckoutRequestID || data.checkoutRequestID || data.CheckoutRequestId)) || json.CheckoutRequestID || json.checkoutRequestID;
+
+      statusDiv.innerHTML = 'M-Pesa prompt sent to ' + escapeHtml(phone) + '.<br><strong>Enter your M-Pesa PIN on your phone now.</strong><br>Waiting for confirmation...';
+
+      if(checkoutId){
+        pollForStatus(checkoutId, statusDiv, payBtn);
+      } else {
+        setTimeout(()=> {
+          statusDiv.textContent = 'If you entered your PIN, the payment should appear shortly. If not, try again.';
+          payBtn.disabled = false;
+        }, 8000);
+      }
+
+    } catch (err){
+      console.error(err);
+      statusDiv.textContent = 'Network error while requesting payment. Try again.';
+      payBtn.disabled = false;
+    }
+  }
+
+  async function pollForStatus(checkoutId, statusDiv, payBtn){
+    let attempts = 0;
+    const maxAttempts = 24;
+    const interval = 5000;
+
+    const poll = setInterval(async () => {
+      attempts++;
+      try {
+        const res = await fetch(MPESA_STATUS_API + '?checkoutId=' + encodeURIComponent(checkoutId));
+        const j = await res.json();
+        if(res.ok && j && j.status){
+          if(j.status === 'SUCCESS'){
+            clearInterval(poll);
+            statusDiv.innerHTML = '✅ Payment confirmed — thank you!<br>Receipt: ' + (j.detail && j.detail.MpesaReceiptNumber ? escapeHtml(j.detail.MpesaReceiptNumber) : 'n/a');
+            localStorage.removeItem(STORAGE_KEY);
+            renderCart();
+            payBtn.disabled = false;
+            return;
+          } else if(j.status === 'FAILED'){
+            clearInterval(poll);
+            statusDiv.innerHTML = '❌ Payment failed or cancelled. ' + (j.detail && j.detail.ResultDesc ? escapeHtml(j.detail.ResultDesc) : '');
+            payBtn.disabled = false;
+            return;
+          } else {
+            statusDiv.textContent = 'Waiting for confirmation... (' + attempts + ')';
+          }
+        } else {
+          statusDiv.textContent = 'Waiting for confirmation... (' + attempts + ')';
+        }
+      } catch(e){
+        console.error('poll error', e);
+        statusDiv.textContent = 'Waiting for confirmation... (' + attempts + ')';
+      }
+
+      if(attempts >= maxAttempts){
+        clearInterval(poll);
+        statusDiv.innerHTML = 'Timeout waiting for payment confirmation. If you entered your PIN and were charged, contact support with your phone number. Otherwise please try again.';
+        payBtn.disabled = false;
+      }
+    }, interval);
+  }
+
+  renderCart();
+</script>
+</body>
+</html>

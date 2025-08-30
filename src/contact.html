@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Qikao Grill</title>
+  <link rel="stylesheet" href="contact.css" />
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <nav class="navbar">
+    <div class="brand">Qikao Grill</div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Menu</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+
+    <!-- Theme Toggle -->
+    <label class="switch" aria-label="Toggle color theme">
+      <input type="checkbox" id="theme-toggle" />
+      <span class="slider">
+        <span class="icon sun">☀️</span>
+        <span class="icon moon">🌙</span>
+      </span>
+    </label>
+
+    <!-- Hamburger -->
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- ✅ Contact Form -->
+  <div class="contact-container">
+    <h2>Contact Qikao Grill</h2>
+    <form id="contact-form">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="tel" id="phone" placeholder="Your Phone" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send via WhatsApp</button>
+    </form>
+  </div>
+
+  <script src="contact.js"></script>
+</body>
+</html>
